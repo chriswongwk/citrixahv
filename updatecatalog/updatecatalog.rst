@@ -97,7 +97,7 @@ Takeaways
 
 - Adding capacity to an existing Machine Catalog can be done rapidly. Combined with Nutanix's ability to expand a physical cluster with a One Click operation, this enables an IT organization to be very responsive to changing business needs.
 
-.. No vCenter.
+- A Nutanix AHV cluster does not have to bottleneck cloning and power operations through a service similar to vCenter or SCVMM, meaning the ability to support more simultaneous operations scales out with the cluster. This scale out architecture compliments VDI operations such as expanding or updating a Machine Catalog.
 
 - Nutanix creates separate block maps (metadata mapping a vDisk to its corresponding extents) for each new snapshot created, eliminating the additional overhead and read latency common with large snapshot chains traditionally seen in other hypervisors. Gold image management is simplified by not having to mitigate the performance impact of snapshot chains.
 

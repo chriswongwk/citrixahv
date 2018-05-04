@@ -4,7 +4,7 @@ XenDesktop Install
 Overview
 ++++++++
 
-In this exercise you will use the CLI to deploy a Windows 2012 template image and install backend services for XenDesktop. For the purposes of simplifying the workshop, all key XenDesktop roles (Studio, Delivery Controller, StoreFront, Citrix Licensing) will be installed in a single VM. In a production environment these roles would be sepearated on multiple VMs to provide scalbility and high availability.
+In this exercise you will use Prism to deploy a Windows 2012 template image and install backend services for XenDesktop. For the purposes of simplifying the workshop, all key XenDesktop roles (Studio, Delivery Controller, StoreFront, Citrix Licensing) will be installed in a single VM. In a production environment these roles would be sepearated on multiple VMs to provide scalbility and high availability.
 
 Additionally, you will install the MCS Plugin for AHV on the Delivery Controller VM. This plugin leverages the Citrix Provisioning SDK to allow Citrix Machine Creation Service to deploy and configure VMs running on Nutanix AHV. In a production environment the MCS Plugin would be deployed on each Delivery Controller VM.
 
@@ -45,9 +45,13 @@ Select the **XD** VM and click **Power on**.
 
 Select the **XD** VM and click **Manage Guest Tools**. Select **Enable Nutanix Guest Tools** and **Mount Nutanix Guest Tools**. Click **Submit**.
 
+Nutanix Guest Tools are responsible for providing optimized device drivers for the guest operating system, as well as Self Service Restore and Volume Shadow Copy provider for application aware snapshots.
+
 .. figure:: images/installxd1.png
 
-.. note:: Nutanix Guest Tools can also be mounted programmatically with nCLI. Using nCLI or connecting to <NUTANIX-CLUSTER-IP> via SSH:
+.. note::
+
+  Nutanix Guest Tools can also be mounted programmatically with nCLI. Using nCLI or connecting to <NUTANIX-CLUSTER-IP> via SSH:
 
   .. code::
 
@@ -102,9 +106,13 @@ Accept the licensing agreement and click **Next**.
 
 Select all components (Delivery Controller, Studio, Director, License Server, and StoreFront) and click **Next**.
 
+The Delivery Controller service is the core component of a XenDesktop deployment, providing connection brokering and provisioning capabilities. Citrix Studio is the management UI, this role can also be installed on standalone systems for remote management. Citrix Director provides monitoring for the deployment. Citrix StoreFront provides the web front end of the connection broker and is responsible for delivering a consistent experience to users across endpoints, StoreFront can also be responsible for authenticating users against AD. See the :ref:`glossary` for additional details about each role.
+
 .. figure:: images/installxd6.png
 
 Select all features (Microsoft SWL Server 2014 Express, Windows Remote Assistance) and click **Next**.
+
+In a production deployment you would use an external, highly available SQL Server instance to provide databases for site, monitoring, and logging operations. The XenDesktop installer provides a SQL Server Express instance for simple testing and POC purposes.
 
 .. figure:: images/installxd7.png
 
@@ -129,6 +137,8 @@ Click **Finish** to complete the installation.
 Installing MCS Plugin for AHV
 +++++++++++++++++++++++++++++
 
+By default, XenDesktop has support for provisioning virtual machines to a number of platforms, including: VMware vSphere, Microsoft Hyper-V, Citrix XenServer, Microsoft Azure, and AWS. The Citrix Provisioning SDK provides the ability to integrate additional platforms with the Delivery Controller's provisioning and power management functions, creating a native Citrix management experience on top of Nutanix AHV.
+
 In the **XD** VM console, open a browser and download the following file: http://download.nutanix.com/firmware/citrix/1.1.3/NutanixAHV-MCS-XD7.9+or+later.msi
 
 Open the installer and click **Next**.
@@ -145,6 +155,8 @@ Click **Finish**.
 
 Configuring XenDesktop Site
 +++++++++++++++++++++++++++
+
+A XenDesktop Site is the name given to a deployed XenDesktop environment, comprised of Delivery Controllers, StoreFront servers, and virtual/physical desktops, and/or application servers. A Site can correspond to a geographical location, though it is not necessary.
 
 In the **XD** VM console, open **Citrix Studio** from the Start Menu.
 
@@ -174,9 +186,11 @@ Fill out the following fields to configure the connection to your AHV cluster an
 - **Connection Name** - *Nutanix Cluster Name*
 - Select **Studio tools (Machine Creation Services)**
 
-.. note:: 'xd' account has been created for you, can use AD accou ntg,ekjenbgrrwegjkbgrjkb
-
 .. figure:: images/installxd16.png
+
+.. note::
+
+  The local **xd** account has been created for you in Prism. Alternatively you could use an Active Directory service account, mapped to Prism as a **Cluster Admin**. It is not recommended to use the default 'admin' Prism account for authenticating to Prism from external services.
 
 Fill out the following fields and click **Next**:
 
@@ -187,7 +201,7 @@ Fill out the following fields and click **Next**:
 
 .. note::
 
-  The **Secondary** network utilizes AHV's native IP Address Management capabilities to provide DHCP services that will be used by provisioned desktops and XenApp servers. # TODO: how to see IPAM settings
+  The **Secondary** network utilizes AHV's native IP Address Management capabilities to provide DHCP services that will be used by provisioned desktops and XenApp servers. To view the IPAM configuration, open **Prism > VM > Network Config > Virtual Networks**. DHCP settings can easily managed via Prism, and can be helpful in simplifying the deployment and management of large VDI environments.
 
 The workshop will not explore Citrix's AppDNA or App-V Publishing features, so both can be left unselected before clicking **Next**.
 
@@ -199,12 +213,14 @@ Once complete, Studio will indicate that configuration was successful.
 
 .. figure:: images/installxd19.png
 
-Selecting the **PowerShell** tab will detail all the steps taken by the Site Creation Wizard.
+Selecting the **PowerShell** tab will detail all the steps taken by the Site Creation Wizard. After completing any task through the Studio UI you will see the PowerShell commands run in the background for each task.
 
 .. figure:: images/installxd20.png
 
 Enabling HTML5 Connections
 ++++++++++++++++++++++++++
+
+XenDesktop has OS native clients for connecting to desktops and applications for all major platforms, including Windows, macOS, Linux, iOS, and Android. To reach even more devices, XenDesktop is also capable of delivering remote content via any HTML5-compliant browser. By default, these connections aren't allowed over non-secure (HTTP) sessions. As signed certificates will not be configured to enable HTTPS as part of the core Workshop, we will enable HTML5 connections over HTTP via the Citrix Policy engine.
 
 Select **Citrix StoreFront > Stores**.
 
@@ -249,6 +265,8 @@ Select **Set the unified Receiver experience as the default for this store** and
 
 Takeaways
 +++++++++
+
+- Prism provides the ability to customize guests through standard VM creation workflow with support for injecting Sysprep and Cloud-Init scripts.
 
 - The Nutanix MCS Plugin provides an integrated and fully supported experience for adding AHV clusters in Citrix Studio.
 

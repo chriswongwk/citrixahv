@@ -12,12 +12,12 @@ In this exercise you will explore and configure AHV's High Availability (HA) and
 
 If you're interested in additional real world system testing, Nutanix has produced an automated system test suite, X-Ray. X-Ray is designed to evaluate hyperconverged infrastructure platforms in a variety of scenarios, including: Database co-location (workload interference), snapshot impact, rolling upgrades, node failures, and workload simulations.
 
-Learn more and get started with X-Ray at http://www.nutanix.com/xray/
+Learn more and get started with X-Ray at http://www.nutanix.com/xray/.
 
 Updating CVM Firewall Rules
 +++++++++++++++++++++++++++
 
-In order to access the internal Curator diagnostic page from outside of the Controller VM subnet, we'll need to open TCP port 2010 in the CVM firewall.
+In order to access the internal diagnostic pages from outside of the Controller VM subnet, we'll need to open TCP port 2010 in the CVM firewall. Typically these pages are only accessed under the guidance of Nutanix Support.
 
 Using an SSH client, execute the following:
 
@@ -28,6 +28,8 @@ Using an SSH client, execute the following:
 
 Configuring VM Affinity
 +++++++++++++++++++++++
+
+To ensure non-HA components within the Workshop such as the Delivery Controller and Domain Controller, you will configure Affinity rules to ensure these VMs only run on certain hosts within the cluster. The ability to assign Affinity rules to a virtual machine can be critical to isolating resources or conforming to software license restrictions for workloads. Anti-affinity rules can be configured in a production environment to ensure HA VMs (such as multiple Delivery Controllers and StoreFront servers) do not run on the same hosts.
 
 In **Prism > VM > Table**, select **XD**. In the **Host** column, observe the host the **XD** VM is currently running on. Click **Update**.
 

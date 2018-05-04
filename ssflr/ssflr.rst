@@ -6,10 +6,12 @@ Self-Service File Level Restore
 Overview
 ++++++++
 
-In this exercise you will configure a snapshot policy for your persistent virtual desktops and test restoring deleted files as an end user.
+In this exercise you will configure native Nutanix snapshots for your persistent virtual desktops and test restoring deleted files as an end user using Nutanix Self Service Restore.
 
 Protecting the VMS
 ++++++++++++++++++
+
+Nutanix provides native backup and replication capabilities to support DR workflows. Snapshots can be taken, cloned, and restored at the per VM or virtual disk level, allowing granular operations. To simplify applying snapshot schedule, retention policy, and replication policy, VMs can be grouped into Protection Domains. Within a Protection Domain, VMs can be combined into Consistency Groups. Consistency Groups ensure all VMs within the group are snapshot at the same time. Protection Domains can also be used to perform application consistent snapshots using either the hypervisor's VSS provider, or the Nutanix Guest Tools VSS provider.
 
 In **Prism > Data Protection**, click **+ Protection Domain > Async DR**.
 

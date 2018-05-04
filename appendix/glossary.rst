@@ -1,3 +1,5 @@
+.. _glossary:
+
 Glossary
 --------
 
@@ -117,6 +119,8 @@ Persistent Desktops
 
 Similar to a traditional desktops, persistent virtual desktops persist changes to the VM across reboots. Persistent desktops can be VMs provisioned either as full clones of a master image, thin clones that share a base image for reads and independently store writes, or simply from disparate VMs. Persistent desktops offer the greatest flexibility to the user, including the ability to install their own applications and customize OS and application settings without dependence on a remote profile. Once the VM has been provisioned it will require patching/updating through traditional means such as SCCM, WSUS, or other 3rd party patch management tools, limiting the operational benefit of implementing VDI. Persistent desktops have greater storage capacity requirements compared to non-persistent desktops, but this can be mitigated through storage deduplication due to the significant overlap in VM data (application patches, Windows updates, etc.).
 
+.. _glossary-non-persistent-desktops:
+
 Non-Persistent Desktops
 +++++++++++++++++++++++
 
@@ -129,5 +133,10 @@ Rather than delivering 1:1 desktop OS VMs to individual users, server based solu
 
 Citrix XenApp
 +++++++++++++
+
+Lorem
+
+Virtual Delivery Agent
+++++++++++++++++++++++
 
 Lorem

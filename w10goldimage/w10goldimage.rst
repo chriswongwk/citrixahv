@@ -4,7 +4,7 @@ Windows 10 Gold Image
 Overview
 ++++++++
 
-In this exercise you will use the Prism to deploy a Windows 10 template image to be used as a Master (often referred to as "Gold") image for XenDesktop. Once the image has been created, you will snapshot the VM in Prism.
+In this exercise you will use the CLI to deploy a Windows 10 template image to be used as a Master (often referred to as "Gold") image for XenDesktop. Once the image has been created, you will snapshot the VM in Prism.
 
 Creating the VM (via CLI)
 +++++++++++++++++++++++++
@@ -82,8 +82,12 @@ Click **Stop**.
 
 Click **OK**.
 
+It is common to disable automatic OS and application updates in a gold image, particularly when it will be used for :ref:`glossary-non-persistent-desktops`. Having hundreds of VMs downloading and applying updates only to be automatically restored to a previous state can be a significant waste of resources.
+
 Installing Virtual Delivery Agent
 +++++++++++++++++++++++++++++++++
+
+The Virtual Delivery Agent (VDA) is a collection of drivers and services installed on each physical or virtual machine available for user connection. The VDA allows the machine to register with the Delivery Controller, allowing the Delivery Controller to assign those resources to users. The VDA is also responsible for establishing the :ref:`glossary-hdx` connection between the machine and the user device, verifying licensing, and applying Citrix Policy.
 
 In **Prism > VM > Table**, select the **W10-Gold** VM and click **Update**.
 
@@ -120,9 +124,13 @@ Select **Let Machine Creation Services do it automatically** from the drop down 
 
 .. figure:: images/w10goldimage9.png
 
-Select **Optimize performance** (`CTX125874 <https://support.citrix.com/article/CTX125874>`_) and click **Next**.
+Select **Optimize performance** and click **Next**.
 
 .. figure:: images/w10goldimage10.png
+
+.. note::
+
+  The **Optimize performance** option disables several Windows functions that aren't applicable in a virtual desktop deployment, saving CPU and memory resources and helping to drive greater density. The changes are detailed in `CTX125874 <https://support.citrix.com/article/CTX125874>`_.
 
 Select **Automatically** to allow the installer to configure the Windows Firewall service to allow traffic for selected XenDesktop components.
 
@@ -142,6 +150,8 @@ Click **Save**.
 
 Creating Gold Image Snapshot
 ++++++++++++++++++++++++++++
+
+XenDesktop provisions pools of desktops based on a hypervisor snapshot of the gold image. Unlike traditional hypervisors which can experience performance degradation from traversing long snapshot chains, Nutanix's redirect-on-write algorithm for implementing snapshots has no such drawback. This difference allows for flexibility in using gold image snapshots to maintain many gold image versions from a single VM. Watch `this video <https://youtu.be/uK5wWR44UYE>`_ for additional details on how Nutanix implements snapshots and cloning.
 
 In **Prism > VM > Table**, select the **W10-Gold** VM and click **Power Off Actions**.
 

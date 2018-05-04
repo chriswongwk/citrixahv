@@ -6,7 +6,7 @@ Delivering Non-Persistent Desktops
 Overview
 ++++++++
 
-In this exercise you will use the Citrix Studio to deploy a pool of non-persistent virtual desktops based the same gold image as the previous lab exercise.
+In this exercise you will use the Citrix Studio to deploy a pool of non-persistent virtual desktops based the same gold image as the previous exercise.
 
 Creating the Machine Catalog
 ++++++++++++++++++++++++++++

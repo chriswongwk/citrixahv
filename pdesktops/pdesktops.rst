@@ -6,12 +6,10 @@ Overview
 
 In this exercise you will use the Citrix Studio to deploy multiple persistent virtual desktops based on your gold image snapshot. You will explore two important constructs within a XenDesktop architecture, Machine Catalogs and Delivery Groups.
 
-Machine Catalogs are collections of either physical or virtual machines. When using MCS or PVS to provision a Machine Catalog from a gold image, all machines provisioned from that image will share the same VM configuration (vCPUs, Memory, Network) and be part of the same domain. A single gold image can be used for multiple Machine Catalogs to provide different size VMs, VMs across multiple domains, etc.
-
-Delivery Groups are collections of machines from one or more Machine Catalogs. The purpose of a Delivery Group is to specify what users or groups can access the machines. For persistent desktops a permanent relationship is created between the machine and the user account. This assignment can occur either manually during creation of the Delivery Group or be assigned automatically during a user's first logon.
-
 Creating the Machine Catalog
 ++++++++++++++++++++++++++++
+
+Machine Catalogs are collections of either physical or virtual machines. When using MCS or PVS to provision a Machine Catalog from a gold image, all machines provisioned from that image will share the same VM configuration (vCPUs, Memory, Network) and be part of the same domain. A single gold image can be used for multiple Machine Catalogs to provide different size VMs, VMs across multiple domains, etc.
 
 In the **XD** VM console, open **Citrix Studio**.
 
@@ -80,6 +78,8 @@ Upon completion, view the details of the Machine Catalog in **Citrix Studio**.
 
 Creating the Delivery Group
 +++++++++++++++++++++++++++
+
+Delivery Groups are collections of machines from one or more Machine Catalogs. The purpose of a Delivery Group is to specify what users or groups can access the machines. For persistent desktops a permanent relationship is created between the machine and the user account. This assignment can occur either manually during creation of the Delivery Group or be assigned automatically during a user's first logon.
 
 Right-click **Delivery Groups > Create Delivery Group**.
 
@@ -156,7 +156,7 @@ In **Citrix Studio**, observe the changes to VM details. As a user logs in they 
 Takeaways
 +++++++++
 
-- #TODO Benefits of HTML5 vs native client, some Prism tie in
+- Citrix is capable of delivering a high-fidelity desktop experience via HTML5. Simiarly, the HTML 5 Nutanix Prism interface provides a single UI for managing and monitoring your infrastructure from anywhere.
 
 - The ability to support a large environment from a single storage container simplifies configuration and improves deployment speed.
 

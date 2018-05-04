@@ -6,7 +6,7 @@ Delivering Applications And Server Desktops
 Overview
 ++++++++
 
-In this exercise you will deploy and configure a Windows 2012 R2 XenApp gold image. Once the image has been created, you will create both the Machine Catalog and Delivery Group.
+In this exercise you will deploy and configure a Windows 2012 R2 XenApp gold image. Once the image has been created, you will create both the Machine Catalog and Delivery Group. Finally you will test connecting to individual applications and comparing the experience with provisioning full desktops.
 
 Creating the XenApp VM
 ++++++++++++++++++++++
@@ -312,4 +312,4 @@ In **Citrix Studio > Delivery Groups > XenApp Delivery Group > View Machines**, 
 Takeaways
 +++++++++
 
-- MCS offers a unified workflow for deploying desktops, desktop applications, server desktops and server applications.
+- MCS offers a unified workflow for deploying desktops, desktop applications, server desktops and server applications, all supported by the Nutanix AHV plugin.
