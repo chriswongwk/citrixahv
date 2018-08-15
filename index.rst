@@ -29,8 +29,8 @@
   :name: _appendix
   :hidden:
 
-  appendix/vdiprimer
-  appendix/glossary
+..  appendix/vdiprimer
+..  appendix/glossary
 
 .. _getting_started:
 

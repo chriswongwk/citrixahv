@@ -15,7 +15,7 @@ Using an SSH client, execute the following:
 
   > ssh nutanix@<NUTANIX-CLUSTER-IP>
   > acli
-  <acropolis> uhura.vm.create_with_customize W10-Gold container=Default memory=4G num_cores_per_vcpu=1 num_vcpus=2 sysprep_config_path=https://raw.githubusercontent.com/mattbator/stageworkshop/master/unattend.xml
+  <acropolis> uhura.vm.create_with_customize W10-Gold container=Default memory=4G num_cores_per_vcpu=1 num_vcpus=2 sysprep_config_path=https://raw.githubusercontent.com/nutanixworkshops/citrixahv/master/w10goldimage/unattend.xml
   <acropolis> vm.disk_create W10-Gold cdrom=true empty=true
   <acropolis> vm.disk_create W10-Gold clone_from_image=Windows10
   <acropolis> vm.nic_create W10-Gold network=Secondary
@@ -31,7 +31,7 @@ Using an SSH client, execute the following:
 
 .. note::
 
-  The `Unattend script <https://raw.githubusercontent.com/mattbator/stageworkshop/master/unattend.xml>`_ will generate a unique hostname, disable the Windows Firewall, and enable Remote Desktop connections.
+  The `Unattend script <https://raw.githubusercontent.com/nutanixworkshops/citrixahv/master/w10goldimage/unattend.xml>`_ will generate a unique hostname, disable the Windows Firewall, and enable Remote Desktop connections.
 
 Select the **W10-Gold** VM and click **Manage Guest Tools**. Select **Enable Nutanix Guest Tools** and **Mount Nutanix Guest Tools**. Click **Submit**.
 
